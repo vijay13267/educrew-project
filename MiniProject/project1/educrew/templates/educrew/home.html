@@ -2,16 +2,16 @@
 {% load static %}
 
 {% block content %}
-<h3>Hello, Sai Sumanth!</h3>
+<h3>Hello, {{ user.firstname }}!</h3>
 
 <br>
 
 <div class="row">
     <div class="col-lg-8">
         <div class="box-element">
-            <strong>Date: 06 November, 2020</strong>
+            <strong>Date: {{date}}</strong>
             <br>
-            <strong>Day: Friday</strong>
+            <strong>Day: {{day}}</strong>
             <br>
             <br>
             <h3>Today's Schedule </h3>

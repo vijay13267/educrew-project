@@ -1,13 +1,17 @@
+from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
-
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
+
+from datetime import datetime
+
+from .models import *
 
 def loginpage(request):
     if request.user.is_authenticated:
@@ -16,7 +20,7 @@ def loginpage(request):
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
-
+            
             user=authenticate(request,username=username,password= password)
             if user is not None :
                 login(request, user)
@@ -30,17 +34,18 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-@login_required(login_url='login')
 def home(request):
-    context = {}
+    user = Student.objects.get(rollno='160118733173')
+    today = datetime.now()
+    date = today.strftime("%d %B, %Y")
+    day = today.strftime("%A")
+    context = {'user':user, 'date':date, 'day': day}
     return render(request,'educrew/home.html',context)
 
-@login_required(login_url='login')
 def profile(request):
     context = {}
     return render(request,'educrew/profile.html',context)
 
-@login_required(login_url='login')
 def explore(request):
     context = {}
     return render(request,'educrew/explore.html',context)
