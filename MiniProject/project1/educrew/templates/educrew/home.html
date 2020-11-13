@@ -26,19 +26,19 @@
                 <tbody>
                     <tr>
                         <th scope="row">1 <br> (9:30 AM to 10:30 AM) </th>
-                        <td>Formal Languages and Automata Theory <br>  By Madhavi Sudha</td>
+                        <td>{{faculty.sub_id}} <br>  By {{faculty.lect_id}}</td>
                     </tr>
                     <tr>
                         <th scope="row">2 <br> (11:00 AM to 12:00 PM) </th>
-                        <td>Design and Analysis of Algorithms <br>  By Madhurima Rana</td>
+                        <td>{{faculty.sub_id}} <br>  By {{faculty.lect_id}}</td>
                     </tr>
                     <tr>
                         <th scope="row">3 <br> (1:00 PM to 2:00 PM) </th>
-                        <td>Operating Systems <br>  By Kavitha Agarwal</td>
+                        <td>{{faculty.sub_id}} <br>  By {{faculty.lect_id}}</td>
                     </tr>
                     <tr>
                         <th scope="row">4 <br> (2:30 PM to 3:30 PM) </th>
-                        <td>Mini Project <br>  By Mary Sudha</td>
+                        <td>{{faculty.sub_id}} <br>  By {{faculty.lect_id}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -49,11 +49,13 @@
     <div class="col-lg-4">
         <div class="box-element">
             <h4>Details:</h4>
-            Name: <strong>Sai Sumanth Korthiwada</strong> 
+            Name: <strong>{{user}}</strong> 
             <br>
-            Branch: CSE 3
+            Branch: {{user.dept_id}}
             <br>
-            Year: 3
+            Section: {{user.sec}}
+            <br>
+            Year: {{user.year}}
             <br>
             <br>
 

@@ -51,7 +51,8 @@ class SubjectInfo(models.Model):
     sub_id = models.ForeignKey(Subject, null=True, on_delete=models.CASCADE)
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.CASCADE)
     sec = models.IntegerField(null=True)
-
+    def __str__(self):
+        return str(self.sub_id)
 
 class StudentSchedule(models.Model):
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL)

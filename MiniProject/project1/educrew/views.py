@@ -35,15 +35,23 @@ def logoutUser(request):
     return redirect('login')
 
 def home(request):
+    #date and time info
     user = Student.objects.get(rollno='160118733173')
     today = datetime.now()
     date = today.strftime("%d %B, %Y")
     day = today.strftime("%A")
-    context = {'user':user, 'date':date, 'day': day}
+
+    #schedule info
+    schedule = StudentSchedule.objects.get(dept_id=1,sec=3,day='Friday')
+    faculty = SubjectInfo.objects.get(unq_id=1000)
+    context = {'user':user, 'date':date, 'day': day,
+    'schedule':schedule,'faculty':faculty,
+    }
     return render(request,'educrew/home.html',context)
 
 def profile(request):
-    context = {}
+    user = Student.objects.get(rollno='160118733173')
+    context = {'user':user}
     return render(request,'educrew/profile.html',context)
 
 def explore(request):

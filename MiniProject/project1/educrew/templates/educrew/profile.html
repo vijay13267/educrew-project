@@ -12,20 +12,24 @@
         <div class="box-element">
             <table class="table table-striped">
                 <tr>
-                    <td colspan="2" class="font-weight-bold">Name</td>
-                    <td colspan="2">Sai Sumanth Korthiwada</td>
+                    <td class="font-weight-bold">Name</td>
+                    <td colspan="3">{{user}}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Department</td>
-                    <td>Computer Science</td>
+                    <td colspan="3">{{user.dept_id}}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Section</td>
+                    <td>{{user.sec}}</td>
                     <td class="font-weight-bold">Year</td>
-                    <td>3</td>
+                    <td>{{user.year}}</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Mobile Number</td>
-                    <td>7036075270</td>
+                    <td>{{user.phoneno}}</td>
                     <td class="font-weight-bold">College Mail ID</td>
-                    <td>ugs18173_cse.sai@cbit.org.in</td>
+                    <td>{{user.email}}</td>
                 </tr>
             </table>
         </div>
