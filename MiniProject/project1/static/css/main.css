@@ -1,0 +1,10 @@
+.some{
+    background-color: aqua;
+}   
+ 
+.box-element{
+    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+}

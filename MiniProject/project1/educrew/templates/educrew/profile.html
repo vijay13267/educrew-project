@@ -1,0 +1,82 @@
+{% extends 'educrew/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>Your Profile</h2>
+
+<br>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="box-element">
+            <table class="table table-striped">
+                <tr>
+                    <td colspan="2" class="font-weight-bold">Name</td>
+                    <td colspan="2">Sai Sumanth Korthiwada</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Department</td>
+                    <td>Computer Science</td>
+                    <td class="font-weight-bold">Year</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Mobile Number</td>
+                    <td>7036075270</td>
+                    <td class="font-weight-bold">College Mail ID</td>
+                    <td>ugs18173_cse.sai@cbit.org.in</td>
+                </tr>
+            </table>
+        </div>
+
+        <br>
+
+        <h3>Achievements </h3>
+        <br>
+        
+        <div class="box-element">
+            <table class="table table-striped">
+                <tr>
+                    <td>Languages Known</td>
+                    <td></td>
+                    <td>Programming Languages</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Internships</td>
+                    <td></td>
+                    <td>Projects</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Links (if any)</td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td>Sports</td>
+                    <td></td>
+                    <td>Other Achievements</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div> 
+    
+    
+    <div class="col-lg-4">
+        <div class="box-element text-center">          
+            <img src="{% static 'images/profilepic.jpg' %}" alt="Profile Pic" height="50%" width="50%">
+            <br>
+            <strong>Sai Sumanth Korthiwada</strong> 
+            <br>
+            <button class="btn btn-info my-2">Edit Profile Details</button>
+            <br>
+            <button class="btn btn-dark my-2">Change Password</button>
+        </div>
+    </div>
+
+
+    
+</div>
+{% endblock content %}
