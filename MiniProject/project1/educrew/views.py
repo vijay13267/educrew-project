@@ -26,7 +26,7 @@ def loginpage(request):
                 login(request, user)
                 return redirect('home') 
             else:
-                messages.info(request,'username/password is incorrect')
+                messages.info(request,'Username/Password is incorrect')
         context = {}
         return render(request,'educrew/login.html',context)
 
@@ -34,9 +34,12 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+@login_required(login_url='login')
 def home(request):
     #date and time info
-    user = Student.objects.get(rollno='160118733173')
+    #user1=authenticate(request,username=username,password= password)
+    person = request.user.username
+    user = Student.objects.get(rollno=person)
     today = datetime.now()
     date = today.strftime("%d %B, %Y")
     day = today.strftime("%A")
@@ -49,11 +52,14 @@ def home(request):
     }
     return render(request,'educrew/home.html',context)
 
+@login_required(login_url='login')
 def profile(request):
-    user = Student.objects.get(rollno='160118733173')
+    person = request.user.username
+    user = Student.objects.get(rollno=person)
     context = {'user':user}
     return render(request,'educrew/profile.html',context)
 
+@login_required(login_url='login')
 def explore(request):
     context = {}
     return render(request,'educrew/explore.html',context)
