@@ -37,18 +37,6 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    #user info
-    role = str(request.user.groups.values_list('name', flat=True).first())
-    person = request.user.username
-    if(role == 'Student'):
-        user = Student.objects.get(rollno=person)
-    elif(role == 'Faculty'):
-        user = Lecturer.objects.get(lect_id=person)
-    else:
-        messages.info(request,'Your role is not specified! Cannot Authenticate')
-        logout(request)
-        return redirect('login')
-    
     #date and time info
     today = datetime.now()
     date = today.strftime("%d %B, %Y")
@@ -57,10 +45,27 @@ def home(request):
     #schedule info
     schedule = StudentSchedule.objects.get(dept_id=1,sec=3,day='Friday')
     faculty = SubjectInfo.objects.get(unq_id=1000)
-    context = {'user':user, 'date':date, 'day': day,
-    'schedule':schedule,'faculty':faculty,
-    'role' : role,
+
+    #user info
+    role = str(request.user.groups.values_list('name', flat=True).first())
+    person = request.user.username
+    if(role == 'Student'):
+        user = Student.objects.get(rollno=person)
+        context = {'user':user, 'date':date, 'day': day,
+        'schedule':schedule,'faculty':faculty,
+        'role' : role,'cond':True,
+        }
+    elif(role == 'Faculty'):
+        user = Lecturer.objects.get(lect_id=person)
+        context = {'user':user, 'date':date, 'day': day,
+        'schedule':schedule,'faculty':faculty,
+        'role' : role, 'cond':False,
     }
+    else:
+        messages.info(request,'Your role is not specified! Cannot Authenticate')
+        logout(request)
+        return redirect('login')
+
     return render(request,'educrew/home.html',context)
 
 @login_required(login_url='login')

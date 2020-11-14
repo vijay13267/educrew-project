@@ -19,12 +19,14 @@
                     <td class="font-weight-bold">Department</td>
                     <td colspan="3">{{user.dept_id}}</td>
                 </tr>
+                {% if cond %}
                 <tr>
                     <td class="font-weight-bold">Section</td>
                     <td>{{user.sec}}</td>
                     <td class="font-weight-bold">Year</td>
                     <td>{{user.year}}</td>
                 </tr>
+                {% endif %}
                 <tr>
                     <td class="font-weight-bold">Mobile Number</td>
                     <td>{{user.phoneno}}</td>
