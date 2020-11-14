@@ -8,10 +8,11 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
-
 from datetime import datetime
 
 from .models import *
+#from .decorators import user_authentication
+
 
 def loginpage(request):
     if request.user.is_authenticated:
@@ -36,10 +37,19 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    #date and time info
-    #user1=authenticate(request,username=username,password= password)
+    #user info
+    role = str(request.user.groups.values_list('name', flat=True).first())
     person = request.user.username
-    user = Student.objects.get(rollno=person)
+    if(role == 'Student'):
+        user = Student.objects.get(rollno=person)
+    elif(role == 'Faculty'):
+        user = Lecturer.objects.get(lect_id=person)
+    else:
+        messages.info(request,'Your role is not specified! Cannot Authenticate')
+        logout(request)
+        return redirect('login')
+    
+    #date and time info
     today = datetime.now()
     date = today.strftime("%d %B, %Y")
     day = today.strftime("%A")
@@ -49,14 +59,20 @@ def home(request):
     faculty = SubjectInfo.objects.get(unq_id=1000)
     context = {'user':user, 'date':date, 'day': day,
     'schedule':schedule,'faculty':faculty,
+    'role' : role,
     }
     return render(request,'educrew/home.html',context)
 
 @login_required(login_url='login')
 def profile(request):
+    role = str(request.user.groups.values_list('name', flat=True).first())
     person = request.user.username
-    user = Student.objects.get(rollno=person)
-    context = {'user':user}
+    if(role == 'Student'):
+        user = Student.objects.get(rollno=person)
+    if(role == 'Faculty'):
+        user = Lecturer.objects.get(lect_id=person)
+
+    context = {'user':user,'role' : role,}
     return render(request,'educrew/profile.html',context)
 
 @login_required(login_url='login')
