@@ -42,23 +42,29 @@ def home(request):
     date = today.strftime("%d %B, %Y")
     day = today.strftime("%A")
 
-    #schedule info
-    schedule = StudentSchedule.objects.get(dept_id=1,sec=3,day='Friday')
-    faculty = SubjectInfo.objects.get(unq_id=1000)
-
     #user info
     role = str(request.user.groups.values_list('name', flat=True).first())
     person = request.user.username
     if(role == 'Student'):
         user = Student.objects.get(rollno=person)
+
+        #schedule info
+        dept = user.dept_id
+        section = user.sec
+        schedule = StudentSchedule.objects.get(dept_id=dept,sec=section,day=day)
+        p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
+        p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
+        p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
+        p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
+
         context = {'user':user, 'date':date, 'day': day,
-        'schedule':schedule,'faculty':faculty,
-        'role' : role,'cond':True,
+        'schedule':schedule,
+        'role' : role,'cond':True,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
         }
     elif(role == 'Faculty'):
         user = Lecturer.objects.get(lect_id=person)
         context = {'user':user, 'date':date, 'day': day,
-        'schedule':schedule,'faculty':faculty,
+        'schedule':schedule,
         'role' : role, 'cond':False,
     }
     else:
@@ -74,10 +80,12 @@ def profile(request):
     person = request.user.username
     if(role == 'Student'):
         user = Student.objects.get(rollno=person)
+        context = {'user':user,'role' : role, 'cond':True,}
     if(role == 'Faculty'):
         user = Lecturer.objects.get(lect_id=person)
+        context = {'user':user,'role' : role, 'cond':False,}
 
-    context = {'user':user,'role' : role,}
+    
     return render(request,'educrew/profile.html',context)
 
 @login_required(login_url='login')

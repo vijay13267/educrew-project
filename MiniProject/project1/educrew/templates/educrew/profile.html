@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-lg-8">
-        <div class="box-element">
+        <div class="box-element" style="margin-bottom: 20px;">
             <table class="table table-striped">
                 <tr>
                     <td class="font-weight-bold">Name</td>
@@ -29,39 +29,45 @@
                 {% endif %}
                 <tr>
                     <td class="font-weight-bold">Mobile Number</td>
-                    <td>{{user.phoneno}}</td>
+                    <td colspan="3">{{user.phoneno}}</td>
+                </tr>
+                <tr>
                     <td class="font-weight-bold">College Mail ID</td>
-                    <td>{{user.email}}</td>
+                    <td colspan="3">{{user.email}}</td>
                 </tr>
             </table>
         </div>
 
-        <br>
-
         <h3>Achievements </h3>
         <br>
         
-        <div class="box-element">
-            <table class="table table-striped">
+        <div class="box-element" style="margin-bottom: 30px;">
+            <table class="table table-bordered table-striped">
                 <tr>
-                    <td>Languages Known</td>
+                    <td width=40%>Languages Known</td>
                     <td></td>
+                </tr>
+                <tr>                  
                     <td>Programming Languages</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Internships</td>
                     <td></td>
+                </tr>
+                <tr>
                     <td>Projects</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>Links (if any)</td>
-                    <td colspan="3"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Sports</td>
                     <td></td>
+                </tr>
+                <tr>
                     <td>Other Achievements</td>
                     <td></td>
                 </tr>
@@ -71,7 +77,7 @@
     
     
     <div class="col-lg-4">
-        <div class="box-element text-center">          
+        <div class="box-element text-center" style="margin-bottom: 50px;">          
             <img src="{% static 'images/profilepic.jpg' %}" alt="Profile Pic" height="50%" width="50%">
             <br>
             <strong>{{user}}</strong> 
