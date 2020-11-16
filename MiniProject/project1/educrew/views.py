@@ -32,9 +32,11 @@ def loginpage(request):
         context = {}
         return render(request,'educrew/login.html',context)
 
+
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
 
 @login_required(login_url='login')
 def home(request):
@@ -50,13 +52,18 @@ def home(request):
         user = Student.objects.get(rollno=person)
 
         #schedule info
-        dept = user.dept_id
+        yr = user.year
+        dept_id = user.dept_id
         section = user.sec
-        schedule = StudentSchedule.objects.get(dept_id=dept,sec=section,day=day)
+        schedule = StudentSchedule.objects.get(dept_id=dept_id,year=yr,sec=section,day=day)
         p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
         p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
         p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
         p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
+        if p1 is None: p1 = "Leisure Hour!"
+        if p2 is None: p2 = "Leisure Hour!"
+        if p3 is None: p3 = "Leisure Hour!"
+        if p4 is None: p4 = "Leisure Hour!"
 
         context = {'user':user, 'date':date, 'day': day,
         'schedule':schedule,
@@ -64,10 +71,21 @@ def home(request):
         }
     elif(role == 'Faculty'):
         user = Lecturer.objects.get(lect_id=person)
+        #schedule info
+        schedule = LecturerSchedule.objects.get(lect_id=person,day=day)
+        p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
+        p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
+        p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
+        p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
+        if p1 is None: p1 = "Leisure Hour!"
+        if p2 is None: p2 = "Leisure Hour!"
+        if p3 is None: p3 = "Leisure Hour!"
+        if p4 is None: p4 = "Leisure Hour!"
+
         context = {'user':user, 'date':date, 'day': day,
         'schedule':schedule,
-        'role' : role, 'cond':False,
-    }
+        'role' : role,'cond':False,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
+        }
     else:
         messages.info(request,'Your role is not specified! Cannot Authenticate')
         logout(request)

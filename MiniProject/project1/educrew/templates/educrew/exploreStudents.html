@@ -10,13 +10,16 @@
 
 
 <form method="GET" action="">
-    {{sfilter.form.as_p}}
+    <div class="form-row">
+        <div class="col-4">{{sfilter.form.as_p}}</div>  
+    </div>
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
+<br>
+<br>
 
-
-<table class="table table-striped">
+<table class="table table-striped  my-lg-0" style="margin-bottom: 100px;">
     <tr>
         <td>ID</td>
         <td>Name</td>

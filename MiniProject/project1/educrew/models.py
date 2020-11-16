@@ -49,6 +49,7 @@ class SubjectInfo(models.Model):
     unq_id = models.IntegerField(primary_key=True)
     lect_id = models.ForeignKey(Lecturer, null=True, on_delete=models.CASCADE)
     sub_id = models.ForeignKey(Subject, null=True, on_delete=models.CASCADE)
+    year = models.IntegerField(null=True)
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.CASCADE)
     sec = models.IntegerField(null=True)
     def __str__(self):
@@ -56,14 +57,15 @@ class SubjectInfo(models.Model):
 
 class StudentSchedule(models.Model):
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL)
+    year = models.IntegerField(null=True,blank=True)
     sec = models.IntegerField(null=True)
     WEEK = (('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday'),('Saturday','Saturday'),('Sunday','Sunday'))
     day = models.CharField(choices=WEEK, max_length=10, null=True)
 
-    p1 = models.IntegerField(null=True, blank=True)
-    p2 = models.IntegerField(null=True, blank=True)
-    p3 = models.IntegerField(null=True, blank=True)
-    p4 = models.IntegerField(null=True, blank=True)
+    p1 = models.IntegerField(null=True)
+    p2 = models.IntegerField(null=True)
+    p3 = models.IntegerField(null=True)
+    p4 = models.IntegerField(null=True)
 
 
 class LecturerSchedule(models.Model):
