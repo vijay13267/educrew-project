@@ -7,39 +7,12 @@
 <h3>EXPLORE PROFILES</h3>
 
 
+
+
 <form method="GET" action="">
-    {{myfilter.form.as_p}}
-    <button class="btn btn-primary" type="submit">Search</button>
-</form>
-
-
-<table class="table table-striped">
-    <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>View Profile</td>
-    </tr>
-
-    {% for lecturer in lecturers %}
-    <tr>       
-        <td>
-            {{lecturer.lect_id}}
-        </td>
-        <td>
-            {{lecturer}}
-        </td>
-        <td><a href="">View Profile</a></td>
-    </tr>
-    {% endfor %}
-
-</table>
-
-
-
-<!-- <form method="GET" action="">
     {{sfilter.form.as_p}}
     <button class="btn btn-primary" type="submit">Search</button>
-</form> -->
+</form>
 
 
 

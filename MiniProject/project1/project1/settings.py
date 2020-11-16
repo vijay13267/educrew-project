@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'educrew.apps.EducrewConfig',
+
+    'django_filters',
 ]
 
 MIDDLEWARE = [

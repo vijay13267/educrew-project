@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 from .models import *
+from .filters import *
 #from .decorators import user_authentication
 
 
@@ -89,6 +90,19 @@ def profile(request):
     return render(request,'educrew/profile.html',context)
 
 @login_required(login_url='login')
-def explore(request):
-    context = {}
-    return render(request,'educrew/explore.html',context)
+def exploreStudents(request):
+    students = Student.objects.all()    
+    sfilter = StudentFilter(request.GET, queryset=students)
+    students = sfilter.qs
+
+    context = {'students':students, 'sfilter':sfilter,}
+    return render(request,'educrew/exploreStudents.html',context)
+
+@login_required(login_url='login')
+def exploreFaculty(request):
+    lecturers = Lecturer.objects.all()
+    lfilter = LecturerFilter(request.GET, queryset=lecturers)
+    lecturers = lfilter.qs
+
+    context = {'lecturers':lecturers, 'lfilter':lfilter,}
+    return render(request,'educrew/exploreFaculty.html',context)

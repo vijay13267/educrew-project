@@ -7,7 +7,9 @@ urlpatterns = [
 
     path('', views.home, name="home"),
     path('profile/', views.profile, name="profile"),
-    path('explore/', views.explore, name="explore"),
+    path('explore/faculty/', views.exploreFaculty, name="exploreFaculty"),
+    path('explore/students/', views.exploreStudents, name="exploreStudents"),
+
     # path('search/<int:id>/', views.search, name="search"),
 
 ]

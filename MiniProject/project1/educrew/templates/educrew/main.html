@@ -26,13 +26,19 @@
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile' %}">Profile</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mr-sm-4" href="{% url 'explore' %}">Explore</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mr-sm-4" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Explore
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'exploreFaculty' %}">Faculty</a>
+                      <a class="dropdown-item" href="{% url 'exploreStudents' %}">Students</a>
+                    </div>
                 </li>
             </ul>
             <form class="form-inline mr-sm-4 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search Profiles" aria-label="Search">
-                <a href="{% url 'explore' %}" class="btn btn-outline-info my-2 my-sm-0">Search</a> 
+                <a href="{% url 'exploreStudents' %}" class="btn btn-outline-info my-2 my-sm-0">Search</a> 
             </form>
             <div class="form-inline my-2 my-lg-0">
                 <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>              
