@@ -5,6 +5,7 @@ from django.db import models
 class Dept(models.Model):
     dept_id = models.IntegerField(primary_key=True)
     dept_name = models.CharField(max_length=60)
+    dept_short = models.CharField(max_length=10,blank=True)
     def __str__(self):
         return self.dept_name
 
@@ -57,7 +58,7 @@ class SubjectInfo(models.Model):
 
 class StudentSchedule(models.Model):
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL)
-    year = models.IntegerField(null=True,blank=True)
+    year = models.IntegerField(null=True)
     sec = models.IntegerField(null=True)
     WEEK = (('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday'),('Saturday','Saturday'),('Sunday','Sunday'))
     day = models.CharField(choices=WEEK, max_length=10, null=True)
@@ -78,4 +79,10 @@ class LecturerSchedule(models.Model):
     p3 = models.IntegerField(null=True, blank=True)
     p4 = models.IntegerField(null=True, blank=True)
 
-
+class Announcements(models.Model):
+    lect_id = models.ForeignKey(Lecturer, null=True, on_delete=models.SET_NULL) 
+    year = models.IntegerField(null=True)
+    dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL)
+    sec = models.IntegerField(null=True)
+    date = models.DateField(null=True)
+    note = models.CharField(null=True, blank=True, max_length=500)

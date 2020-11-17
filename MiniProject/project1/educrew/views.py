@@ -12,13 +12,14 @@ from datetime import datetime
 
 from .models import *
 from .filters import *
-#from .decorators import user_authentication
+from .forms import *
+#from .decorators import restricted_users
 
-
+#@restricted_users('Admin')
 def loginpage(request):
     if request.user.is_authenticated:
         return redirect('home')
-    else :
+    else:
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -31,6 +32,8 @@ def loginpage(request):
                 messages.info(request,'Username/Password is incorrect')
         context = {}
         return render(request,'educrew/login.html',context)
+    context = {}
+    return render(request,'educrew/login.html',context)
 
 
 def logoutUser(request):
@@ -65,9 +68,15 @@ def home(request):
         if p3 is None: p3 = "Leisure Hour!"
         if p4 is None: p4 = "Leisure Hour!"
 
+
+        #Announcements
+        date2 = today.strftime("%Y-%m-%d")
+        annc = Announcements.objects.filter(dept_id=dept_id,year=yr,sec=section,date=date2) 
+
         context = {'user':user, 'date':date, 'day': day,
         'schedule':schedule,
         'role' : role,'cond':True,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
+        'announcements': annc,
         }
     elif(role == 'Faculty'):
         user = Lecturer.objects.get(lect_id=person)
@@ -75,12 +84,9 @@ def home(request):
         schedule = LecturerSchedule.objects.get(lect_id=person,day=day)
         p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
         p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
-        p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
+        p3 = SubjectInfo.objects.get(unq_id=schedule.p3) 
         p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
-        if p1 is None: p1 = "Leisure Hour!"
-        if p2 is None: p2 = "Leisure Hour!"
-        if p3 is None: p3 = "Leisure Hour!"
-        if p4 is None: p4 = "Leisure Hour!"
+        
 
         context = {'user':user, 'date':date, 'day': day,
         'schedule':schedule,
@@ -124,3 +130,13 @@ def exploreFaculty(request):
 
     context = {'lecturers':lecturers, 'lfilter':lfilter,}
     return render(request,'educrew/exploreFaculty.html',context)
+
+@login_required(login_url='login')
+def announcement(request):
+    user = request.user
+    form = AnnounceForm()
+    if request.method == 'GET':
+        pass
+        
+    context= {'form':form}
+    return render(request,'educrew/announcement.html',context)

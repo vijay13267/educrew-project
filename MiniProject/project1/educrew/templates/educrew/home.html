@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <th scope="row">2 <br> (11:00 AM to 12:00 PM) </th>
-                        <td>{{p2}} <br>  To {{p1.dept_id}} Year: {{p1.year}} Section:{{p1.sec}}}</td>
+                        <td>{{p2}} <br>  To {{p2.dept_id}} Year: {{p2.year}} Section:{{p2.sec}}</td>
                     </tr>
                     <tr>
                         <th scope="row">3 <br> (1:00 PM to 2:00 PM) </th>
@@ -84,10 +84,18 @@
             <br>
             <br>
 
+            {% if cond %}
             <h4>Announcements:</h4>
-            <p>
-                No Announcements yet.
-            </p>
+            <ul>
+                {% for a in announcements %}
+                <li>{{a.lect_id}} : {{a.note}}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <h5>Make Announcements for Students:</h5>
+            <a href="{% url 'announcement' %}" class="btn btn-primary">Announce</a>         
+            {% endif %}
+            
         </div>
     </div>
 </div>

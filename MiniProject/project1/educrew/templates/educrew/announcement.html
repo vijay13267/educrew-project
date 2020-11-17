@@ -1,0 +1,20 @@
+{% extends 'educrew/main.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<h3>Make Announcement</h3>
+<div class="row">
+    <div class="col-lg-12 my-lg-2">
+        <div class="box-element" style="margin-bottom: 20px;">
+            <form method="GET" action="">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div> 
+</div>
+
+{% endblock content %}
