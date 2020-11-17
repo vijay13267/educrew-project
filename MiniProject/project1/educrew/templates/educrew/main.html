@@ -36,9 +36,9 @@
                     </div>
                 </li>
             </ul>
-            <form class="form-inline mr-sm-4 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Profiles" aria-label="Search">
-                <a href="{% url 'exploreStudents' %}" class="btn btn-outline-info my-2 my-sm-0">Search</a> 
+            <form class="form-inline mr-sm-4 my-lg-0" action="{% url 'search' %}">
+                <input class="form-control mr-sm-2" type="search" name="search_name" placeholder="Search Profiles" aria-label="Search">
+                <a href="" class="btn btn-outline-info my-2 my-sm-0">Search</a> 
             </form>
             <div class="form-inline my-2 my-lg-0">
                 <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>              

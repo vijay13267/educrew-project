@@ -147,7 +147,7 @@ def announcement(request):
     context= {'form':form,'lect':lect}
     return render(request,'educrew/announcement.html',context)
 
-
+@login_required(login_url='login')
 def makeAnnouncement(request):
     user = request.user
     lect_id = request.user.username
@@ -167,3 +167,59 @@ def makeAnnouncement(request):
         a.save()
         return redirect('home')
 
+@login_required(login_url='login')
+def viewFaculty(request,pk):
+    user = Lecturer.objects.get(lect_id=pk)
+
+    today = datetime.now()
+    day = today.strftime("%A")
+
+    #schedule info
+    schedule = LecturerSchedule.objects.get(lect_id=pk,day=day)
+    if schedule.p1 is None: p1 = "Leisure" 
+    else: p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
+    if schedule.p2 is None: p2 = "Leisure" 
+    else: p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
+    if schedule.p3 is None: p3 = "Leisure" 
+    else: p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
+    if schedule.p4 is None: p4 = "Leisure" 
+    else: p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
+    
+
+    context = {'user':user, 'schedule':schedule,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
+    'leisure':"Leisure",
+    }
+    return render(request,'educrew/viewFaculty.html',context)
+
+@login_required(login_url='login')
+def viewStudent(request,pk):
+    user = Student.objects.get(rollno=pk)
+
+    today = datetime.now()
+    day = today.strftime("%A")
+
+    yr = user.year
+    dept_id = user.dept_id
+    section = user.sec
+
+    #schedule info
+    schedule = StudentSchedule.objects.get(dept_id=dept_id,year=yr,sec=section,day=day)
+    if schedule.p1 is None: p1 = "Free" 
+    else: p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
+    if schedule.p2 is None: p2 = "Free" 
+    else: p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
+    if schedule.p3 is None: p3 = "Free" 
+    else: p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
+    if schedule.p4 is None: p4 = "Free" 
+    else: p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
+    
+
+    context = {'user':user, 'schedule':schedule,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
+    'free':"Free",
+    }
+    return render(request,'educrew/viewStudent.html',context)
+
+
+def search(request):
+    context = {    }
+    return render(request,'educrew/viewStudent.html',context)

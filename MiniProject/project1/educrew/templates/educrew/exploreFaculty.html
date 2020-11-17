@@ -31,7 +31,7 @@
         <td>
             {{lecturer}}
         </td>
-        <td><a href="">View Profile</a></td>
+        <td><a href="{% url 'viewFaculty' lecturer.lect_id %}">View Profile</a></td>
     </tr>
     {% endfor %}
 
