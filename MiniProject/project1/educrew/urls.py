@@ -9,7 +9,9 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('explore/faculty/', views.exploreFaculty, name="exploreFaculty"),
     path('explore/students/', views.exploreStudents, name="exploreStudents"),
-    path('announce/',views.announcement, name = "announcement")
+    path('announce/',views.announcement, name = "announcement"),
+    path('makeAnnouncement/',views.makeAnnouncement, name = "makeAnnouncement"),
+
     # path('search/<int:id>/', views.search, name="search"),
 
 ]

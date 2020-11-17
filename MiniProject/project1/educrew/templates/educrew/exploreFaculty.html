@@ -8,15 +8,14 @@
 
 
 <form method="GET" action="">
-    <div class="form-row">
-        <div>{{lfilter.form.as_p}}</div>  
-    </div>
+    {{lfilter.form.as_p}}
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
 <br>
 <br>
 
+<div class="mb-lg-5">
 <table class="table table-striped  my-lg-0" style="margin-bottom: 100px;">
     <tr>
         <td>ID</td>
@@ -37,5 +36,6 @@
     {% endfor %}
 
 </table>
+</div>
 
 {% endblock content %}

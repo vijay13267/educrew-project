@@ -27,38 +27,50 @@
                 <tbody>
                     <tr>
                         <th scope="row">1 <br> (9:30 AM to 10:30 AM) </th>
-                        <td>{{p1}} <br>  By {{p1.lect_id}}</td>
+                        <td>{% if p1 == free %} Free Hour!
+                            {% else%} {{p1}} <br>  By {{p1.lect_id}} {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">2 <br> (11:00 AM to 12:00 PM) </th>
-                        <td>{{p2}} <br>  By {{p2.lect_id}}</td>
+                        <td>{% if p2 == free %} Free Hour!
+                            {% else%} {{p2}} <br>  By {{p2.lect_id}} {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">3 <br> (1:00 PM to 2:00 PM) </th>
-                        <td>{{p3}} <br>  By {{p3.lect_id}}</td>
+                        <td>{% if p3 == free %} Free Hour!
+                            {% else%} {{p3}} <br>  By {{p3.lect_id}} {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">4 <br> (2:30 PM to 3:30 PM) </th>
-                        <td>{{p4}} <br>  By {{p4.lect_id}}</td>
+                        <td>{% if p4 == free %} Free Hour!
+                            {% else%} {{p4}} <br>  By {{p4.lect_id}} {% endif %}</td>
                     </tr>
                 </tbody>
                 {% else %}
                 <tbody>
                     <tr>
                         <th scope="row">1 <br> (9:30 AM to 10:30 AM) </th>
-                        <td>{{p1}} <br>  To {{p1.dept_id}} Year: {{p1.year}} Section:{{p1.sec}}</td>
+                        <td>{% if p1 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
+                            {% else%} {{p1}} <br>  To {{p1.dept_id}} Year: {{p1.year}} Section:{{p1.sec}} 
+                            {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">2 <br> (11:00 AM to 12:00 PM) </th>
-                        <td>{{p2}} <br>  To {{p2.dept_id}} Year: {{p2.year}} Section:{{p2.sec}}</td>
+                        <td>{% if p2 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
+                            {% else%} {{p2}} <br>  To {{p2.dept_id}} Year: {{p2.year}} Section:{{p2.sec}} 
+                            {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">3 <br> (1:00 PM to 2:00 PM) </th>
-                        <td>{{p3}} <br>  To {{p1.dept_id}} Year: {{p1.year}} Section:{{p1.sec}}</td>
+                        <td>{% if p3 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
+                            {% else%} {{p3}} <br>  To {{p3.dept_id}} Year: {{p3.year}} Section:{{p3.sec}} 
+                            {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">4 <br> (2:30 PM to 3:30 PM) </th>
-                        <td>{{p4}} <br>  To {{p1.dept_id}} Year: {{p1.year}} Section:{{p1.sec}}</td>
+                        <td>{% if p4 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
+                            {% else%} {{p4}} <br>  To {{p4.dept_id}} Year: {{p4.year}} Section:{{p4.sec}} 
+                            {% endif %}</td>
                     </tr>
                 </tbody>
                 {% endif %}
@@ -75,25 +87,29 @@
             Branch: {{user.dept_id}}
             <br>
             {% if cond %}
-            Section: {{user.sec}}
-            <br>
-            Year: {{user.year}}
-            <br>
+                Section: {{user.sec}}
+                <br>
+                Year: {{user.year}}
+                <br>
             {% endif %}
             Role: {{role}}
             <br>
             <br>
 
             {% if cond %}
-            <h4>Announcements:</h4>
-            <ul>
-                {% for a in announcements %}
-                <li>{{a.lect_id}} : {{a.note}}</li>
-                {% endfor %}
-            </ul>
+                <h4>Announcements:</h4>
+                {% if count == 0 %}
+                    <p>No Announcements yet.</p>
+                {% else %}
+                    <ul>
+                        {% for a in announcements %}
+                        <li><b> {{a.lect_id}} </b>: {{a.note}}</li>
+                        {% endfor %}               
+                    </ul>
+                {% endif %}
             {% else %}
-            <h5>Make Announcements for Students:</h5>
-            <a href="{% url 'announcement' %}" class="btn btn-primary">Announce</a>         
+                <h5>Make Announcements for Students:</h5>
+                <a href="{% url 'announcement' %}" class="btn btn-primary">Announce</a>         
             {% endif %}
             
         </div>

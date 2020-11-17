@@ -59,38 +59,44 @@ def home(request):
         dept_id = user.dept_id
         section = user.sec
         schedule = StudentSchedule.objects.get(dept_id=dept_id,year=yr,sec=section,day=day)
-        p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
-        p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
-        p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
-        p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
-        if p1 is None: p1 = "Leisure Hour!"
-        if p2 is None: p2 = "Leisure Hour!"
-        if p3 is None: p3 = "Leisure Hour!"
-        if p4 is None: p4 = "Leisure Hour!"
+        if schedule.p1 is None: p1 = "Free" 
+        else: p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
+        if schedule.p2 is None: p2 = "Free" 
+        else: p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
+        if schedule.p3 is None: p3 = "Free" 
+        else: p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
+        if schedule.p4 is None: p4 = "Free" 
+        else: p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
 
 
         #Announcements
         date2 = today.strftime("%Y-%m-%d")
         annc = Announcements.objects.filter(dept_id=dept_id,year=yr,sec=section,date=date2) 
+        count = annc.count
 
         context = {'user':user, 'date':date, 'day': day,
         'schedule':schedule,
         'role' : role,'cond':True,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
-        'announcements': annc,
+        'announcements': annc,'free':"Free",'count':count,
         }
     elif(role == 'Faculty'):
         user = Lecturer.objects.get(lect_id=person)
         #schedule info
         schedule = LecturerSchedule.objects.get(lect_id=person,day=day)
-        p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
-        p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
-        p3 = SubjectInfo.objects.get(unq_id=schedule.p3) 
-        p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
+        if schedule.p1 is None: p1 = "Leisure" 
+        else: p1 = SubjectInfo.objects.get(unq_id=schedule.p1)
+        if schedule.p2 is None: p2 = "Leisure" 
+        else: p2 = SubjectInfo.objects.get(unq_id=schedule.p2)
+        if schedule.p3 is None: p3 = "Leisure" 
+        else: p3 = SubjectInfo.objects.get(unq_id=schedule.p3)
+        if schedule.p4 is None: p4 = "Leisure" 
+        else: p4 = SubjectInfo.objects.get(unq_id=schedule.p4)
         
 
         context = {'user':user, 'date':date, 'day': day,
         'schedule':schedule,
         'role' : role,'cond':False,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
+        'leisure':"Leisure",
         }
     else:
         messages.info(request,'Your role is not specified! Cannot Authenticate')
@@ -134,9 +140,30 @@ def exploreFaculty(request):
 @login_required(login_url='login')
 def announcement(request):
     user = request.user
-    form = AnnounceForm()
-    if request.method == 'GET':
-        pass
-        
-    context= {'form':form}
+    lect_id = request.user.username
+    lect = Lecturer.objects.get(lect_id=lect_id)
+    form = AnnounceForm(instance=user)
+
+    context= {'form':form,'lect':lect}
     return render(request,'educrew/announcement.html',context)
+
+
+def makeAnnouncement(request):
+    user = request.user
+    lect_id = request.user.username
+    lect = Lecturer.objects.get(lect_id=lect_id)
+
+    if request.method == 'GET':
+        k = request.GET
+        year = k.get("year", "0")
+        dept_id = k.get("dept_id", "0")
+        sec = k.get("sec", "0")
+        date = k.get("date", "0")
+        note = k.get("note", "0")
+
+        dept = Dept.objects.get(dept_id=dept_id)
+
+        a = Announcements(lect_id=lect,year=year,dept_id=dept,sec=sec,date=date,note=note)
+        a.save()
+        return redirect('home')
+

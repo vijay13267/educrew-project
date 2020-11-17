@@ -1,5 +1,6 @@
 from django.db import models
-
+from datetime import date
+from django.utils import timezone
 # Create your models here.
 
 class Dept(models.Model):
@@ -32,6 +33,8 @@ class Lecturer(models.Model):
     lastname = models.CharField(max_length=100, null=True)
     email = models.CharField(max_length=100)
     phoneno = models.IntegerField(null=True)
+    cabin_no = models.CharField(max_length=50, null=True, blank=True)
+
 
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL) #cascade
     
@@ -63,10 +66,10 @@ class StudentSchedule(models.Model):
     WEEK = (('Monday','Monday'),('Tuesday','Tuesday'),('Wednesday','Wednesday'),('Thursday','Thursday'),('Friday','Friday'),('Saturday','Saturday'),('Sunday','Sunday'))
     day = models.CharField(choices=WEEK, max_length=10, null=True)
 
-    p1 = models.IntegerField(null=True)
-    p2 = models.IntegerField(null=True)
-    p3 = models.IntegerField(null=True)
-    p4 = models.IntegerField(null=True)
+    p1 = models.IntegerField(null=True, blank=True)
+    p2 = models.IntegerField(null=True, blank=True)
+    p3 = models.IntegerField(null=True, blank=True)
+    p4 = models.IntegerField(null=True, blank=True)
 
 
 class LecturerSchedule(models.Model):
@@ -84,5 +87,9 @@ class Announcements(models.Model):
     year = models.IntegerField(null=True)
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL)
     sec = models.IntegerField(null=True)
-    date = models.DateField(null=True)
-    note = models.CharField(null=True, blank=True, max_length=500)
+    date = models.DateField(null=True,default=date.today) #django.utils.timezone.now
+    note = models.CharField(null=True, max_length=500)
+
+    def __str__(self): 
+        return self.note
+

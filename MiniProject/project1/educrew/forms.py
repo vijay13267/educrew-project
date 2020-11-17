@@ -6,3 +6,4 @@ class AnnounceForm(ModelForm):
     class Meta:
         model = Announcements
         fields= '__all__'
+        exclude = ['lect_id']

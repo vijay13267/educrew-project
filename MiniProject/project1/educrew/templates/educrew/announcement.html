@@ -5,14 +5,20 @@
 
 
 <h3>Make Announcement</h3>
-<div class="row">
+<br>
+<b>Announcement by: {{lect}}</b>
+
+<div class="row my-lg-3">
     <div class="col-lg-12 my-lg-2">
         <div class="box-element" style="margin-bottom: 20px;">
-            <form method="GET" action="">
+            <form method="GET" action="{% url 'makeAnnouncement' %}">
                 {% csrf_token %}
                 {{form.as_p}}
-                <button class="btn btn-primary" type="submit">Submit</button>
+                <input class="btn btn-primary" type="submit">
             </form>
+            <br>
+            <br>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Go back to Home</a>
         </div>
     </div> 
 </div>
