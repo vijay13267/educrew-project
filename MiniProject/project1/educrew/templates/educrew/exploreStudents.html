@@ -36,7 +36,7 @@
         <td>
             {{student}}
         </td>
-        <td><a href="{% url 'viewStudent' student.rollno %}">View Profile</a></td>
+        <td><a class="btn btn-dark" href="{% url 'viewStudent' student.rollno %}">View Profile</a></td>
     </tr>
     {% endfor %}
 

@@ -1,0 +1,31 @@
+{% extends 'educrew/main.html' %}
+
+
+{% block content %}
+
+<h2>Update Your Profile</h2>
+          
+<div class="col-lg-8 text-center">
+  <div class="box-element pt-lg-4 mt-lg-4 pl-lg-4">
+    <h3>Edit Your Details!</h3>
+    <br>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-info">Update</button>
+      </form>
+      <hr>
+      <a class="btn btn-dark" href="{% url 'profile' %}">Back to Profile</a>
+      <br>
+      <br>
+      {% if messages %}  
+        {% for message in messages %}
+          <p class="text-center rounded" style="background-color: rgb(90, 95, 90); color: white;height: 25px; margin: auto;"> {{ message }}</p>
+        {% endfor %}
+      {% endif %}
+  </div>
+</div>
+
+{% endblock content %}
+
+

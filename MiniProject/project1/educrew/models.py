@@ -1,6 +1,9 @@
 from django.db import models
 from datetime import date
 from django.utils import timezone
+from django.contrib.auth.models import User
+
+
 # Create your models here.
 
 class Dept(models.Model):
@@ -11,6 +14,7 @@ class Dept(models.Model):
         return self.dept_name
 
 class Student(models.Model):
+    user = models.OneToOneField(User,null=True, blank=True ,on_delete=models.CASCADE)
     rollno = models.IntegerField(primary_key=True)
     firstname = models.CharField(max_length=100, null=True)
     lastname = models.CharField(max_length=100, null=True)
@@ -23,17 +27,19 @@ class Student(models.Model):
     year = models.IntegerField(choices=YEAR, null=True)
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL) #cascade
     sec = models.IntegerField(choices=SEC, null=True)
-    
+    profile_image= models.ImageField(default="profilepic.jpg",null=True)
     def __str__(self):
         return self.firstname +" "+  self.lastname
 
 class Lecturer(models.Model):
+    user = models.OneToOneField(User,null=True, blank=True ,on_delete=models.CASCADE)
     lect_id = models.IntegerField(primary_key=True)
     firstname = models.CharField(max_length=100, null=True)
     lastname = models.CharField(max_length=100, null=True)
     email = models.CharField(max_length=100)
     phoneno = models.IntegerField(null=True)
     cabin_no = models.CharField(max_length=50, null=True, blank=True)
+    profile_image= models.ImageField(default="profilepic.jpg",null=True)
 
 
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL) #cascade
@@ -92,4 +98,8 @@ class Announcements(models.Model):
 
     def __str__(self): 
         return self.note
+
+
+
+
 

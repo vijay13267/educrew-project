@@ -26,6 +26,11 @@
                     <td class="font-weight-bold">Year</td>
                     <td>{{user.year}}</td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td class="font-weight-bold">Cabin Details:</td>
+                    <td>{{user.cabin_no}}</td>
+                </tr>
                 {% endif %}
                 <tr>
                     <td class="font-weight-bold">Mobile Number</td>
@@ -78,13 +83,21 @@
     
     <div class="col-lg-4">
         <div class="box-element text-center" style="margin-bottom: 50px;">          
-            <img src="{% static 'images/profilepic.jpg' %}" alt="Profile Pic" height="50%" width="50%">
+            {% if cond %}
+            <img src="{{request.user.student.profile_image.url}}" alt="Profile Pic" style="height:175px;width:175px;border-radius: 50%;">
             <br>
             <strong>{{user}}</strong> 
             <br>
-            <a class="btn btn-info my-2">Edit Profile Details</a>
+            <a class="btn btn-info my-2" href="{% url 'profile-update' %}">Edit Profile Details</a>
+            {% else %}
+            <img src="{{request.user.lecturer.profile_image.url}}" alt="Profile Pic" style="height:175px;width:175px;border-radius: 50%;">
             <br>
-            <a class="btn btn-dark my-2">Change Password</a>
+            <strong>{{user}}</strong> 
+            <br>
+            <a class="btn btn-info my-2" href="{% url 'profile-update2' %}">Edit Profile Details</a>
+            {% endif %}
+            <br>
+            <a class="btn btn-dark my-2" href="{% url 'change_password' %}">Change Password</a>
         </div>
     </div>
 

@@ -101,15 +101,15 @@
                 {% if count == 0 %}
                     <p>No Announcements yet.</p>
                 {% else %}
-                    <ul>
-                        {% for a in announcements %}
-                        <li><b> {{a.lect_id}} </b>: {{a.note}}</li>
-                        {% endfor %}               
-                    </ul>
+                    {% for a in announcements %}
+                    <p class="list-group-item"><b> {{a.lect_id}} </b>: {{a.note}}</p>
+                    {% endfor %}
                 {% endif %}
             {% else %}
-                <h5>Make Announcements for Students:</h5>
-                <a href="{% url 'announcement' %}" class="btn btn-primary">Announce</a>         
+                <h5 class="mb-lg-3">Make Announcements for Students:</h5>
+                <div class="text-center">
+                    <a href="{% url 'announcement' %}" class="btn btn-primary">Announce</a>       
+                </div>  
             {% endif %}
             
         </div>

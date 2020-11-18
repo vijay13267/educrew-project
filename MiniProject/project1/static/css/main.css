@@ -4,3 +4,13 @@
     border-radius: 4px;
     padding: 10px;
 }
+
+img {
+    border-radius: 50%;
+}
+
+.message-box{
+    background-color: red;
+    color: white;
+    border-radius: 25%;
+}

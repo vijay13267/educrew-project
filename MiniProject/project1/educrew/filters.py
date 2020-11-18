@@ -6,10 +6,10 @@ class LecturerFilter(django_filters.FilterSet):
     class Meta:
         model = Lecturer
         fields = '__all__'
-        exclude = ['email','phoneno']
+        exclude = ['email','phoneno','profile_image']
 
 class StudentFilter(django_filters.FilterSet):
     class Meta:
         model = Student
         fields = '__all__'
-        exclude = ['email','phoneno']
+        exclude = ['email','phoneno','profile_image']
