@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
+from django.http import HttpResponseRedirect
+
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
@@ -226,7 +228,7 @@ def viewStudent(request,pk):
 #     return render(request,'educrew/viewStudent.html',context)
 
 
-
+@login_required(login_url='login')
 def change_password(request):
     if request.method == "POST":
         form = PasswordChangeForm(data=request.POST,user=request.user)
@@ -244,16 +246,8 @@ def change_password(request):
         args ={'form':form}
         return render(request,'educrew/change_password.html',args)
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from educrew.models import Student
-from django.views.generic import TemplateView, CreateView
-from django.http import HttpResponseRedirect
 
-class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'educrew/profile.html'
-
-
+@login_required(login_url='login')
 def ProfileUpdateView(request):
     if request.method == "POST":
         student=request.user.student
@@ -268,20 +262,23 @@ def ProfileUpdateView(request):
     else:
         student=request.user.student
         form=ProfileForm(instance=student)
-        args ={'form':form}
-        return render(request,'educrew/profile-update.html',args)
+        context ={'form':form}
+        return render(request,'educrew/profile-update.html',context)
 
-
+@login_required(login_url='login')
 def ProfileUpdateView2(request):
-    lect=request.user.lecturer
-    form=ProfileForm2(instance=lect)
-
-    if request.method == 'POST':
+    if request.method == "POST":
+        lect=request.user.lecturer
         form =ProfileForm(request.POST,request.FILES,instance=lect)
         if form.is_valid:
             form.save()
-            messages.success(request, 'Your profile is updated successfully!')
-            return HttpResponseRedirect(reverse_lazy('profile'))
-
-    context={'form':form}
-    return render(request,'educrew/profile-update.html',context)
+            messages.success(request, 'Profile Changed successfully!')        
+            return HttpResponseRedirect(request.path_info)
+        else:
+            messages.error(request, 'Sorry! Cannot Upadate your profile. Please check the details!')
+            return HttpResponseRedirect(request.path_info)
+    else:
+        lect=request.user.lecturer
+        form=ProfileForm(instance=lect)
+        context={'form':form}
+        return render(request,'educrew/profile-update.html',context)
