@@ -39,6 +39,8 @@
 </div>
 
 <div class="col-lg-10 box-element" style="margin-bottom: 20px;">
+    <h2>Time Table</h2>
+    <br>
     <table class="table table-bordered table-striped text-center">
         <thead class="thead-dark">
             <tr>
@@ -66,6 +68,39 @@
                 <th scope="row">4 <br> (2:30 PM to 3:30 PM) </th>
                 <td>{% if p4 == free %} Free Hour!
                     {% else%} {{p4}} <br>  By {{p4.lect_id}} {% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-lg-10 box-element" style="margin-bottom: 20px;">
+    <h2>Achievements</h2>
+    <br>
+    <table class="table table-bordered table-striped text-center">
+        <tbody>
+            <tr>
+                <td class="font-weight-bold" width=40%>Languages Known</td>
+                <td>{{achvmnts.lang_known}}</td>
+            </tr>
+            <tr>                  
+                <td class="font-weight-bold">Programming Languages</td>
+                <td>{{achvmnts.prog_lang}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Internships</td>
+                <td>{{achvmnts.internships}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Projects</td>
+                <td>{{achvmnts.projects}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Links (if any)</td>
+                <td>{{achvmnts.links}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Sports</td>
+                <td>{{achvmnts.sports}}</td>
             </tr>
         </tbody>
     </table>

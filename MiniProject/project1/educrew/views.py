@@ -16,7 +16,7 @@ from datetime import datetime
 from .models import *
 from .filters import *
 from .forms import *
-#from .decorators import restricted_users
+from .decorators import faculty_only,student_only
 
 #@restricted_users('Admin')
 def loginpage(request):
@@ -114,10 +114,14 @@ def profile(request):
     person = request.user.username
     if(role == 'Student'):
         user = Student.objects.get(rollno=person)
-        context = {'user':user,'role' : role, 'cond':True,}
+        achvmnts = StudentAchievement.objects.get(rollno=person)
+        context = {'user':user,'role' : role, 'cond':True,
+        'achvmnts':achvmnts}
     if(role == 'Faculty'):
         user = Lecturer.objects.get(lect_id=person)
-        context = {'user':user,'role' : role, 'cond':False,}
+        achvmnts = FacultyAchievement.objects.get(lect_id=person)
+        context = {'user':user,'role' : role, 'cond':False,
+        'achvmnts':achvmnts}
 
     
     return render(request,'educrew/profile.html',context)
@@ -141,6 +145,7 @@ def exploreFaculty(request):
     return render(request,'educrew/exploreFaculty.html',context)
 
 @login_required(login_url='login')
+@faculty_only
 def announcement(request):
     user = request.user
     lect_id = request.user.username
@@ -151,6 +156,7 @@ def announcement(request):
     return render(request,'educrew/announcement.html',context)
 
 @login_required(login_url='login')
+@faculty_only
 def makeAnnouncement(request):
     user = request.user
     lect_id = request.user.username
@@ -173,7 +179,7 @@ def makeAnnouncement(request):
 @login_required(login_url='login')
 def viewFaculty(request,pk):
     user = Lecturer.objects.get(lect_id=pk)
-
+    achvmnts = FacultyAchievement.objects.get(lect_id=pk)
     today = datetime.now()
     day = today.strftime("%A")
 
@@ -190,13 +196,14 @@ def viewFaculty(request,pk):
     
 
     context = {'user':user, 'schedule':schedule,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
-    'leisure':"Leisure",
+    'leisure':"Leisure",'achvmnts':achvmnts,
     }
     return render(request,'educrew/viewFaculty.html',context)
 
 @login_required(login_url='login')
 def viewStudent(request,pk):
     user = Student.objects.get(rollno=pk)
+    achvmnts = StudentAchievement.objects.get(rollno=pk)
 
     today = datetime.now()
     day = today.strftime("%A")
@@ -218,7 +225,7 @@ def viewStudent(request,pk):
     
 
     context = {'user':user, 'schedule':schedule,'p1':p1, 'p2':p2, 'p3':p3, 'p4':p4,
-    'free':"Free",
+    'free':"Free",'achvmnts':achvmnts,
     }
     return render(request,'educrew/viewStudent.html',context)
 
@@ -239,7 +246,7 @@ def change_password(request):
             messages.success(request, 'Password Changed successfully!')        
             return HttpResponseRedirect(request.path_info)
         else:
-            messages.error(request, 'Sorry! Cannot Upadate your password. Please check the Passwords!')
+            messages.error(request, 'Sorry! Cannot Update your password. Your passwords didnot fill requirements!')
             return HttpResponseRedirect(request.path_info)
     else:
         form=PasswordChangeForm(user=request.user)
@@ -248,6 +255,7 @@ def change_password(request):
 
 
 @login_required(login_url='login')
+@student_only
 def ProfileUpdateView(request):
     if request.method == "POST":
         student=request.user.student
@@ -266,6 +274,7 @@ def ProfileUpdateView(request):
         return render(request,'educrew/profile-update.html',context)
 
 @login_required(login_url='login')
+@faculty_only
 def ProfileUpdateView2(request):
     if request.method == "POST":
         lect=request.user.lecturer
@@ -282,3 +291,42 @@ def ProfileUpdateView2(request):
         form=ProfileForm(instance=lect)
         context={'form':form}
         return render(request,'educrew/profile-update.html',context)
+
+def StuAchievements(request):
+    if request.method == "POST":
+        user = request.user.student
+        achvmnts = StudentAchievement.objects.get(rollno=user)
+        form = StuAchvmntsForm(request.POST,instance=achvmnts)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'Details Updated successfully!')        
+            return HttpResponseRedirect(request.path_info)
+        else:
+            messages.error(request, 'Sorry! Cannot Upadate your profile. Please check the details!')
+            return HttpResponseRedirect(request.path_info)
+    else:
+        user = request.user.student
+        achvmnts = StudentAchievement.objects.get(rollno=user)
+        form = StuAchvmntsForm(instance=achvmnts)
+        context ={'form':form}
+        return render(request,'educrew/student-achievements.html',context)
+
+
+def FacAchievements(request):
+    if request.method == "POST":
+        user = request.user.lecturer
+        achvmnts = FacultyAchievement.objects.get(lect_id=user)
+        form = FacAchvmntsForm(request.POST,instance=achvmnts)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'Details Updated successfully!')        
+            return HttpResponseRedirect(request.path_info)
+        else:
+            messages.error(request, 'Sorry! Cannot Upadate your profile. Please check the details!')
+            return HttpResponseRedirect(request.path_info)
+    else:
+        user = request.user.lecturer
+        achvmnts = FacultyAchievement.objects.get(lect_id=user)
+        form = FacAchvmntsForm(instance=achvmnts)
+        context ={'form':form}
+        return render(request,'educrew/faculty-achievements.html',context)

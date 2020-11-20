@@ -49,32 +49,51 @@
         <div class="box-element" style="margin-bottom: 30px;">
             <table class="table table-bordered table-striped">
                 <tr>
-                    <td width=40%>Languages Known</td>
-                    <td></td>
+                    <td class="font-weight-bold" width=40%>Languages Known</td>
+                    <td>{{achvmnts.lang_known}}</td>
                 </tr>
+                {% if cond %}
                 <tr>                  
-                    <td>Programming Languages</td>
-                    <td></td>
+                    <td class="font-weight-bold">Programming Languages</td>
+                    <td>{{achvmnts.prog_lang}}</td>
                 </tr>
                 <tr>
-                    <td>Internships</td>
-                    <td></td>
+                    <td class="font-weight-bold">Internships</td>
+                    <td>{{achvmnts.internships}}</td>
                 </tr>
                 <tr>
-                    <td>Projects</td>
-                    <td></td>
+                    <td class="font-weight-bold">Projects</td>
+                    <td>{{achvmnts.projects}}</td>
                 </tr>
                 <tr>
-                    <td>Links (if any)</td>
-                    <td></td>
+                    <td class="font-weight-bold">Links (if any)</td>
+                    <td>{{achvmnts.links}}</td>
                 </tr>
                 <tr>
-                    <td>Sports</td>
-                    <td></td>
+                    <td class="font-weight-bold">Sports</td>
+                    <td>{{achvmnts.sports}}</td>
+                </tr>
+                {% else %}
+                <tr>                  
+                    <td class="font-weight-bold">Education Qualifications</td>
+                    <td>{{achvmnts.qual}}</td>
                 </tr>
                 <tr>
-                    <td>Other Achievements</td>
-                    <td></td>
+                    <td class="font-weight-bold">Specializations</td>
+                    <td>{{achvmnts.spcltns}}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Projects</td>
+                    <td>{{achvmnts.projects}}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Research Works</td>
+                    <td>{{achvmnts.research}}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td class="font-weight-bold">Other Achievements</td>
+                    <td>{{achvmnts.other}}</td>
                 </tr>
             </table>
         </div>
@@ -89,12 +108,16 @@
             <strong>{{user}}</strong> 
             <br>
             <a class="btn btn-info my-2" href="{% url 'profile-update' %}">Edit Profile Details</a>
+            <br>
+            <a class="btn btn-info my-2" href="{% url 'student-achievements' %}">Edit Achievements</a>
             {% else %}
             <img src="{{request.user.lecturer.profile_image.url}}" alt="Profile Pic" style="height:175px;width:175px;border-radius: 50%;">
             <br>
             <strong>{{user}}</strong> 
             <br>
             <a class="btn btn-info my-2" href="{% url 'profile-update2' %}">Edit Profile Details</a>
+            <br>
+            <a class="btn btn-info my-2" href="{% url 'faculty-achievements' %}">Edit Achievements</a>
             {% endif %}
             <br>
             <a class="btn btn-dark my-2" href="{% url 'change_password' %}">Change Password</a>

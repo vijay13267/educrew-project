@@ -37,6 +37,8 @@
 </div>
 
 <div class="col-lg-10 box-element" style="margin-bottom: 20px;">
+    <h2>Time Table</h2>
+    <br>
     <table class="table table-bordered table-striped text-center">
         <thead class="thead-dark">
             <tr>
@@ -68,6 +70,35 @@
                 <td>{% if p4 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
                     {% else%} {{p4}} <br>  To {{p4.dept_id}} Year: {{p4.year}} Section:{{p4.sec}} 
                     {% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-lg-10 box-element" style="margin-bottom: 20px;">
+    <h2>Achievements</h2>
+    <br>
+    <table class="table table-bordered table-striped text-center">
+        <tbody>
+            <tr>
+                <td class="font-weight-bold" width=40%>Languages Known</td>
+                <td>{{achvmnts.lang_known}}</td>
+            </tr>
+            <tr>                  
+                <td class="font-weight-bold">Education Qualifications</td>
+                <td>{{achvmnts.qual}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Specializations</td>
+                <td>{{achvmnts.spcltns}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Projects</td>
+                <td>{{achvmnts.projects}}</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Research Works</td>
+                <td>{{achvmnts.research}}</td>
             </tr>
         </tbody>
     </table>

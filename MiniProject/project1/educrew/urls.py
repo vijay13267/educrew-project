@@ -25,6 +25,9 @@ urlpatterns = [
 
     path('profile-update-student/', views.ProfileUpdateView, name='profile-update'),
     path('profile-update-faculty/', views.ProfileUpdateView2, name='profile-update2'),
+    path('student-achievements/', views.StuAchievements, name='student-achievements'),
+    path('faculty-achievements/', views.FacAchievements, name='faculty-achievements'),
+
     # path('profile/', ProfileView.as_view(), name='profile'),
 
     path('reset_password/',auth_views.PasswordResetView.as_view(), name="rest_password"),

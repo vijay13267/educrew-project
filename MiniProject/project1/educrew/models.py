@@ -100,6 +100,21 @@ class Announcements(models.Model):
         return self.note
 
 
+class StudentAchievement(models.Model):
+    rollno = models.ForeignKey(Student, null=True, on_delete=models.SET_NULL)
+    lang_known = models.CharField(null=True,blank=True, max_length=500)
+    prog_lang = models.CharField(null=True,blank=True, max_length=500)
+    internships = models.CharField(null=True,blank=True, max_length=500)
+    projects = models.CharField(null=True,blank=True, max_length=500)
+    links = models.CharField(null=True,blank=True, max_length=500)
+    sports = models.CharField(null=True,blank=True, max_length=500)
+    other = models.CharField(null=True,blank=True, max_length=500)
 
-
-
+class FacultyAchievement(models.Model):
+    lect_id = models.ForeignKey(Lecturer, null=True, on_delete=models.SET_NULL)
+    lang_known = models.CharField(null=True,blank=True, max_length=500)
+    qual = models.CharField(null=True,blank=True, max_length=500)
+    spcltns = models.CharField(null=True,blank=True, max_length=500)
+    projects = models.CharField(null=True,blank=True, max_length=500)
+    research = models.CharField(null=True,blank=True, max_length=500)
+    other = models.CharField(null=True,blank=True, max_length=500)
