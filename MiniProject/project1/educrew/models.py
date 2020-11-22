@@ -97,7 +97,8 @@ class Announcements(models.Model):
     year = models.IntegerField(null=True)
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL)
     sec = models.IntegerField(null=True)
-    date = models.DateField(null=True,default=date.today) #django.utils.timezone.now
+    start_date = models.DateField(null=True,default=date.today)
+    end_date = models.DateField(null=True,default=date.today)  
     note = models.CharField(null=True, max_length=500)
 
     def __str__(self): 

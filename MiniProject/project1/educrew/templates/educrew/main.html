@@ -13,10 +13,13 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-        <a class="navbar-brand" href="{% url 'home' %}">EduCrew</a>
+        <div style="font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;">
+        <a class="navbar-brand" href="{% url 'home' %}"><div style="background-color: black;font-weight: bold;color: white;float: left;border-radius: 25%;font-size: larger;padding: 2px 6px;margin-top: 3px;">edu</div>
+        <div style="float: left;font-weight: bold;font-size: larger;margin-top: 5px;margin-left: 2px;">crew</div></a></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+    
       
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
@@ -36,13 +39,16 @@
                     </div>
                 </li>
             </ul>
-            <!-- <form class="form-inline mr-sm-4 my-lg-0" method="POST">
-                <input class="form-control mr-sm-2" type="search" name="search_name" placeholder="Search Profiles">
-                <a href="" class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</a> 
-            </form> -->
-            <div class="form-inline my-2 my-lg-0">
+            <form action="/search" method="get" class="form-inline">
+                <input class="form-control mr-lg-2" name="query" id="query" placeholder="Search">
+                <button class="btn btn-outline-info mr-lg-3" type="submit">Search</button>
+            </form>
+            <div class="form-inline">
                 <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>              
             </div>
+            <!-- <div class="form-inline ml-lg-2 mt-lg-3">
+                <p style="font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;font-weight: bold;background-color:black;border-radius: 10%;padding: 5px 10px; color: white;">{{user}} </p>              
+            </div> -->
         </div>
     </nav>
 

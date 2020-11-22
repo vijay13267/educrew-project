@@ -7,10 +7,25 @@
 <h3>EXPLORE PROFILES</h3>
 
 
-<form method="GET" action="">
-    {{lfilter.form.as_p}}
-    <button class="btn btn-primary" type="submit">Search</button>
-</form>
+<div class="col-lg-8">
+    <div class="box-element pt-lg-4 mt-lg-4">           
+        <form method="GET" action="">
+            <div class="form-row ml-lg-5">
+                <table>
+                    {% for f in  lfilter.form%}
+                    <tr>
+                        <td class="font-weight-bold">{{f.label}}:</td>
+                        <td>{{f}}</td>
+                    </tr>
+                    {% endfor %}
+                </table> 
+            </div>
+            <center>
+                <button class="btn btn-primary mt-lg-4" type="submit">Search</button>
+            </center>
+        </form>
+    </div>
+</div>
 
 <br>
 <br>

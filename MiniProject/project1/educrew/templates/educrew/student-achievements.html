@@ -3,7 +3,7 @@
 
 <h2>Your Achievements</h2>
           
-<div class="col-lg-8 text-center">
+<div class="col-lg-7 text-center">
   <div class="box-element pt-lg-4 mt-lg-4 pl-lg-4">
     {% if messages %}  
         {% for message in messages %}
@@ -14,7 +14,14 @@
     <br>
       <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        <table class="ml-lg-5 mb-lg-4">
+          {% for f in form %}
+          <tr>
+              <td class="font-weight-bold float-right">{{f.label}} : </td>
+              <td class="">{{f}}</td>
+          </tr>
+          {% endfor %}
+        </table>
         <button type="submit" class="btn btn-info">Update</button>
       </form>
       <hr>

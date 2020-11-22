@@ -18,7 +18,7 @@ urlpatterns = [
     path('announce/',views.announcement, name = "announcement"),
     path('makeAnnouncement/',views.makeAnnouncement, name = "makeAnnouncement"),
 
-    # path('search/', views.search, name="search"),
+    path('search/', views.search, name="search"),
 
     path('change-password/',views.change_password,name="change_password"),
 

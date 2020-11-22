@@ -13,14 +13,22 @@
         <div class="box-element pl-lg-4" style="margin-bottom: 20px;">
             <form method="GET" action="{% url 'makeAnnouncement' %}">
                 {% csrf_token %}
-                {{form.as_p}}
-                <input class="btn btn-primary" type="submit">
+                <table class=" table mb-lg-4">
+                    {% for f in form %}
+                    <tr class="mb-lg-4">
+                        <td class="font-weight-bold">{{f.label}} : </td>
+                        <td>{{f}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <center>
+                <b>NOTE: Enter date in YYYY-MM-DD Format only!</b>
+                <br>
+                <input class="btn btn-primary mt-lg-3" type="submit">
             </form>
             <br>
-            <b>NOTE: Enter date in YYYY-MM-DD Format only!</b>
-            <br>
-            <br>
-            <a href="{% url 'home' %}" class="btn btn-secondary">Go back to Home</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary mt-lg-3">Go back to Home</a>
+                </center>
         </div>
     </div> 
 </div>

@@ -50,25 +50,25 @@
             <tr>
                 <th scope="row">1 <br> (9:30 AM to 10:30 AM) </th>
                 <td>{% if p1 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
-                    {% else%} {{p1}} <br>  To {{p1.dept_id}} Year: {{p1.year}} Section:{{p1.sec}} 
+                    {% else%} {{p1.sub_id}} <br>  To {{p1.dept_id}} Year: {{p1.year}} Section:{{p1.sec}} 
                     {% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">2 <br> (11:00 AM to 12:00 PM) </th>
                 <td>{% if p2 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
-                    {% else%} {{p2}} <br>  To {{p2.dept_id}} Year: {{p2.year}} Section:{{p2.sec}} 
+                    {% else%} {{p2.sub_id}} <br>  To {{p2.dept_id}} Year: {{p2.year}} Section:{{p2.sec}} 
                     {% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">3 <br> (1:00 PM to 2:00 PM) </th>
                 <td>{% if p3 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
-                    {% else%} {{p3}} <br>  To {{p3.dept_id}} Year: {{p3.year}} Section:{{p3.sec}} 
+                    {% else%} {{p3.sub_id}} <br>  To {{p3.dept_id}} Year: {{p3.year}} Section:{{p3.sec}} 
                     {% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">4 <br> (2:30 PM to 3:30 PM) </th>
                 <td>{% if p4 == leisure %} Leisure! <br> Available at {{user.cabin_no}}
-                    {% else%} {{p4}} <br>  To {{p4.dept_id}} Year: {{p4.year}} Section:{{p4.sec}} 
+                    {% else%} {{p4.sub_id}} <br>  To {{p4.dept_id}} Year: {{p4.year}} Section:{{p4.sec}} 
                     {% endif %}</td>
             </tr>
         </tbody>

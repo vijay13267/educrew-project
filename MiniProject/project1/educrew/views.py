@@ -74,7 +74,7 @@ def home(request):
 
         #Announcements
         date2 = today.strftime("%Y-%m-%d")
-        annc = Announcements.objects.filter(dept_id=dept_id,year=yr,sec=section,date=date2) 
+        annc = Announcements.objects.filter(start_date__lte=date2,end_date__gte=date2) 
         count = annc.count
 
         context = {'user':user, 'date':date, 'day': day,
@@ -167,12 +167,13 @@ def makeAnnouncement(request):
         year = k.get("year", "0")
         dept_id = k.get("dept_id", "0")
         sec = k.get("sec", "0")
-        date = k.get("date", "0")
+        start_date = k.get("start_date", "0")
+        end_date = k.get("end_date", "0")
         note = k.get("note", "0")
 
         dept = Dept.objects.get(dept_id=dept_id)
 
-        a = Announcements(lect_id=lect,year=year,dept_id=dept,sec=sec,date=date,note=note)
+        a = Announcements(lect_id=lect,year=year,dept_id=dept,sec=sec,start_date=start_date,end_date=end_date,note=note)
         a.save()
         return redirect('home')
 
@@ -292,6 +293,7 @@ def ProfileUpdateView2(request):
         context={'form':form}
         return render(request,'educrew/profile-update.html',context)
 
+@login_required(login_url='login')
 def StuAchievements(request):
     if request.method == "POST":
         user = request.user.student
@@ -311,7 +313,7 @@ def StuAchievements(request):
         context ={'form':form}
         return render(request,'educrew/student-achievements.html',context)
 
-
+@login_required(login_url='login')
 def FacAchievements(request):
     if request.method == "POST":
         user = request.user.lecturer
@@ -332,10 +334,10 @@ def FacAchievements(request):
         return render(request,'educrew/faculty-achievements.html',context)
 
 
-
-# def search(request):
-#     if request.method == "POST": 
-#         a = Lecturer.objects.filter(lect_id=123400)
-#     context = {'a':a,
-#     }
-#     return render(request,'educrew/search.html',context)
+@login_required(login_url='login')
+def search(request):
+    query = request.GET['query']
+    lecturers = Lecturer.objects.filter(firstname__icontains=query)
+    students = Student.objects.filter(firstname__icontains=query)
+    context = {'lecturers':lecturers,'students':students}
+    return render(request,'educrew/search.html',context)

@@ -2,6 +2,42 @@
 {% load static %}
 
 {% block content %}
-<h3>SEARCH</h3>
-{{a}}
+<h3>Search Results:</h3>
+<br>
+<div class="mb-lg-5">
+    <table class="table table-striped  my-lg-0" style="margin-bottom: 100px;">
+        <tr>
+            <td class="font-weight-bold">ID</td>
+            <td class="font-weight-bold">Name</td>
+            <td class="font-weight-bold">View Profile</td>
+        </tr>
+    
+        {% for lecturer in lecturers %}
+        <tr>       
+            <td>
+                {{lecturer.lect_id}}
+            </td>
+            <td>
+                {{lecturer}}
+            </td>
+            <td><a class="btn btn-dark" href="{% url 'viewFaculty' lecturer.lect_id %}">View Profile</a></td>
+        </tr>
+        {% endfor %}
+
+        {% for student in students %}
+        <tr>       
+            <td>
+                {{student.rollno}}
+            </td>
+            <td>
+                {{student}}
+            </td>
+            <td><a class="btn btn-dark" href="{% url 'viewStudent' student.rollno %}">View Profile</a></td>
+        </tr>
+        {% endfor %}
+    
+    </table>
+    </div>
+    
+
 {% endblock content %}
