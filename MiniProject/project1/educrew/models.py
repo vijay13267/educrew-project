@@ -63,7 +63,7 @@ class SubjectInfo(models.Model):
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.CASCADE)
     sec = models.IntegerField(null=True)
     def __str__(self):
-        return str(self.sub_id)
+        return str(self.unq_id)+": "+str(self.sub_id)+" "+str(self.dept_id)+" " +str(self.sec)+" sec"
 
 class StudentSchedule(models.Model):
     dept_id = models.ForeignKey(Dept, null=True, on_delete=models.SET_NULL)
@@ -76,7 +76,8 @@ class StudentSchedule(models.Model):
     p2 = models.IntegerField(null=True, blank=True)
     p3 = models.IntegerField(null=True, blank=True)
     p4 = models.IntegerField(null=True, blank=True)
-
+    def __str__(self):
+        return str(self.year)+" yr "+str(self.dept_id)+" dept "+str(self.sec)+" sec "+self.day
 
 class LecturerSchedule(models.Model):
     lect_id = models.ForeignKey(Lecturer, null=True, on_delete=models.SET_NULL) 
@@ -87,6 +88,9 @@ class LecturerSchedule(models.Model):
     p2 = models.IntegerField(null=True, blank=True)
     p3 = models.IntegerField(null=True, blank=True)
     p4 = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.lect_id)+" "+self.day+"'s schedule"
 
 class Announcements(models.Model):
     lect_id = models.ForeignKey(Lecturer, null=True, on_delete=models.SET_NULL) 
@@ -110,6 +114,9 @@ class StudentAchievement(models.Model):
     sports = models.CharField(null=True,blank=True, max_length=500)
     other = models.CharField(null=True,blank=True, max_length=500)
 
+    def __str__(self):
+        return str(self.rollno)+"'s Achievements"
+
 class FacultyAchievement(models.Model):
     lect_id = models.ForeignKey(Lecturer, null=True, on_delete=models.SET_NULL)
     lang_known = models.CharField(null=True,blank=True, max_length=500)
@@ -118,3 +125,5 @@ class FacultyAchievement(models.Model):
     projects = models.CharField(null=True,blank=True, max_length=500)
     research = models.CharField(null=True,blank=True, max_length=500)
     other = models.CharField(null=True,blank=True, max_length=500)
+    def __str__(self):
+        return str(self.lect_id)+"'s Achievements"
