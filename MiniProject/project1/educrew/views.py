@@ -330,3 +330,12 @@ def FacAchievements(request):
         form = FacAchvmntsForm(instance=achvmnts)
         context ={'form':form}
         return render(request,'educrew/faculty-achievements.html',context)
+
+
+
+# def search(request):
+#     if request.method == "POST": 
+#         a = Lecturer.objects.filter(lect_id=123400)
+#     context = {'a':a,
+#     }
+#     return render(request,'educrew/search.html',context)

@@ -18,24 +18,25 @@ class UserForm(forms.ModelForm):
         ]
 
 class ProfileForm(forms.ModelForm):
-    phoneno = forms.IntegerField(label='Phone Number')
+    phoneno = forms.IntegerField(label='Phone Number',required=False)
     class Meta:
         model = Student
         fields = ['email','phoneno','profile_image']
         
 class ProfileForm2(forms.ModelForm):
-    phoneno = forms.IntegerField(label='Phone Number')
+    phoneno = forms.IntegerField(label='Phone Number',required=False)
     class Meta:
         model = Lecturer
         fields = ['email','phoneno','cabin_no','profile_image']
 
 class StuAchvmntsForm(forms.ModelForm):
-    lang_known = forms.CharField(label='Languages Known')
-    prog_lang = forms.CharField(label='Programming Languages')
-    internships = forms.CharField(label='Internships')
-    projects = forms.CharField(label='Projects')
-    sports = forms.CharField(label='Links (if any)')
-    other = forms.CharField(label='Sports')
+    lang_known = forms.CharField(label='Languages Known',required=False)
+    prog_lang = forms.CharField(label='Programming Languages',required=False)
+    internships = forms.CharField(label='Internships',required=False)
+    projects = forms.CharField(label='Projects',required=False)
+    links = forms.CharField(label='Links (if any)',required=False)
+    sports = forms.CharField(label='Sports',required=False)
+    other = forms.CharField(label='Other Achievements',required=False)
     
     class Meta:
         model = StudentAchievement
@@ -43,12 +44,12 @@ class StuAchvmntsForm(forms.ModelForm):
         exclude = ['rollno']
 
 class FacAchvmntsForm(forms.ModelForm):
-    lang_known = forms.CharField(label='Languages Known')
-    qual = forms.CharField(label='Education Qualifications')
-    spcltns = forms.CharField(label='Specializations')
-    projects = forms.CharField(label='Projects')
-    research = forms.CharField(label='Research Works')
-    other = forms.CharField(label='Other Achievements')
+    lang_known = forms.CharField(label='Languages Known',required=False)
+    qual = forms.CharField(label='Education Qualifications',required=False)
+    spcltns = forms.CharField(label='Specializations',required=False)
+    projects = forms.CharField(label='Projects',required=False)
+    research = forms.CharField(label='Research Works',required=False)
+    other = forms.CharField(label='Other Achievements',required=False)
     class Meta:
         model = FacultyAchievement
         fields = '__all__'
