@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 ]
 
 #media files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
 #SMTP Configuration
