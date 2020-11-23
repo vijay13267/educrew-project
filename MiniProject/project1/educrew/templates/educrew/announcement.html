@@ -15,10 +15,10 @@
                 {% csrf_token %}
                 <table class=" table mb-lg-4">
                     {% for f in form %}
-                    <tr class="mb-lg-4">
-                        <td class="font-weight-bold">{{f.label}} : </td>
-                        <td>{{f}}</td>
-                    </tr>
+                        <tr class="mb-lg-4">
+                            <td class="font-weight-bold">{{f.label}} : </td>
+                            <td>{{f}}</td>
+                        </tr>
                     {% endfor %}
                 </table>
                 <center>

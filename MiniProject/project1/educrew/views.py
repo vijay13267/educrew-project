@@ -74,7 +74,7 @@ def home(request):
 
         #Announcements
         date2 = today.strftime("%Y-%m-%d")
-        annc = Announcements.objects.filter(start_date__lte=date2,end_date__gte=date2) 
+        annc = Announcements.objects.filter(dept_id=dept_id,year=yr,sec=section,start_date__lte=date2,end_date__gte=date2) 
         count = annc.count
 
         context = {'user':user, 'date':date, 'day': day,
